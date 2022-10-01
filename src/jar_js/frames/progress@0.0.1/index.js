@@ -25,7 +25,7 @@ var progress = function(app){
 
                         resolve(response)
                     }else {
-                        reject("Page not found.")
+                        reject("Page not found: "+url)
                     }
                 }
             }
