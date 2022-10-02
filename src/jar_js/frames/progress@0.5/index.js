@@ -1,6 +1,10 @@
 var progress = function(app){
     var loaded_pages = {}
     var stacks = {}
+    var atualStack = undefined
+    var attemps_default = 2
+
+    app.storage.setLocal("progress_error_attemps",0)
 
     function loadStacks(){
         return new Promise(async (resolve,reject)=>{
@@ -20,12 +24,13 @@ var progress = function(app){
             xhr.open("GET",url)
             xhr.onreadystatechange = ()=>{
                 if(xhr.readyState == 4){
-                    if(xhr.statusText == "OK"){
+                    if(xhr.status == 200 || xhr.status == 304){
                         const response = xhr.responseText
 
                         resolve(response)
                     }else {
-                        reject("Page not found: "+url)
+                        ShowError(`Page not found or exist: ${url}`)
+                        reject(`Page not found or exist: ${url}`)
                     }
                 }
             }
@@ -44,12 +49,14 @@ var progress = function(app){
                         loaded_pages[page] = content
                     })
 
-                    if(pages.length-1 == i){        
+                    if(pages.length-1 == i){   
+                        atualStack = stack     
                         resolve()
                     }
                 })
             }else {
-                reject("Stack dont exist: "+stack)
+                ShowError(`Stack dont exist: ${stack}`)
+                reject(`Stack dont exist: ${stack}`)
             }
         })
     }
@@ -61,7 +68,7 @@ var progress = function(app){
     };
 
     async function setPage(pageName){
-        if(loaded_pages[pageName]){
+        if(loaded_pages[pageName]!=undefined){
             // remove
 
             const head_elements = document.head.children    
@@ -101,17 +108,30 @@ var progress = function(app){
                 script.replaceWith(new_script)
             })
         }else {
-            document.body.innerHTML = `
-                <style>body{background:#161616;}p{font-family:system-ui;font-size:15px;width:100%;display:flex;justify-content:center;padding-top:50px;color:#ff6b6bba;}</style>
-                <p>Progress Error: Page dont exist or PageStack not loaded, page: ${pageName}</p>
-            `
+            ShowError(`Page dont exist or PageStack not loaded, page: ${pageName}`)
         }
+    }
+
+    function ShowError(msg){
+            const attemps = parseInt(app.storage.getLocal("progress_error_attemps"))
+            if(attemps < attemps_default){
+                app.storage.setLocal("progress_error_attemps",attemps+1)
+                location.reload()
+            }else {
+                app.storage.setLocal("progress_error_attemps",0)
+                document.body.innerHTML = `
+                    <style>body{background:#161616;}p{font-family:system-ui;font-size:15px;width:100%;display:flex;justify-content:center;padding-top:50px;color:#ff6b6bba;}</style>
+                    <p>Progress Error: ${msg}</p>
+                `
+            }
     }
 
     return {
         set: setPage,
         load: loadStack,
-        loadStacks
+        loadStacks,
+        stack: atualStack,
+        stacks
     }
 }(app_signature.application_manager)
 

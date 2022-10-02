@@ -1,5 +1,6 @@
 {
     "stacks": {
-        "index": ["index","page2"]
+        "index": ["index","our_data","feed","contact","about"],
+        "accounts": ["accounts/enter","accounts/create","accounts/dashboard"]
     }
 }
