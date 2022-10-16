@@ -1,13 +1,11 @@
 // Graphics
-const app = app_signature.application_manager
-
-const graphics = document.querySelectorAll("Graphic-viewer")
+var graphics = document.querySelectorAll("Graphic-viewer")
 graphics.forEach(item=>{
     const title = item.getAttribute("top-content")
     var text = item.getAttribute("content")
     const name = item.getAttribute("name")
 
-    const src = `${app.host}/assets/imgs/graphics/${name}.png`
+    const src = `../assets/imgs/graphics/${name}.png`
 
     text = text.replace("\n","<br>")
 

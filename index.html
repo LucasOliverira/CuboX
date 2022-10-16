@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <script async>
+        function start_indicator(){
+            const collapse_menu = document.querySelector("body > div.collapsed-menu")
+            collapse_menu.addEventListener("mouseover",()=>{
+                collapse_menu.setAttribute("opened",true)
+            })
+            collapse_menu.addEventListener("mouseout",()=>{
+                collapse_menu.setAttribute("opened",false)
+            })
+
+            // Set indicator
+            const indicator = collapse_menu.querySelector(".indicator")
+            switch(progress.getActualPage()){
+                case "feed":
+                        indicator.style.display = "block"
+                        indicator.style.marginTop = "5px"
+                    break;
+                case "our_data":
+                        indicator.style.display = "block"
+                        indicator.style.marginTop = "60px"
+                    break;
+                case "about":
+                        indicator.style.display = "block"
+                        indicator.style.marginTop = "115px"
+                    break;
+                case "contact":
+                        indicator.style.display = "block"
+                        indicator.style.marginTop = "170px"
+                    break;
+                case "index":
+                        indicator.style.display = "block"
+                        indicator.style.marginTop = "-70px"
+                    break;
+                default:
+                        indicator.style.display = "none"
+                    break;
+            }
+        }
+
+        var PROGRESS_CONFIGS = {
+            load_all_pages: true,
+            loading_message: "Aguarde, carregando a aplicação",
+            call_after_load: "start_indicator",
+            call_after_change: "start_indicator",
+        }
+    </script>
+    <script src="./jar_js/entrypoint.js" jar_entrypoint_caller></script>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../assets/imgs/cubo-x-logo.ico" type="image/x-icon">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400&display=swap');
+
+a {
+    cursor: pointer;
+}
+
+.collapsed-menu {
+    position: fixed;
+    width: 50px;
+    height: 100vh;
+    background: #3b3b3b;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+    z-index: 999;
+    padding-top: 10px;
+    padding-left: 10px;
+    content-visibility: auto;
+}
+
+.collapsed-menu[opened=true] {
+    width: 20% !important;
+    padding-left: 10px;
+    align-items: flex-start !important;
+}
+
+.collapsed-menu .top {
+    margin-bottom: 20px;
+}
+
+.collapsed-menu[opened=true] .top {
+    justify-content: flex-start !important;
+}
+
+.collapsed-menu .top img {
+    width: 50px;
+}
+
+.collapsed-menu .body-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapsed-menu .item-menu {
+    width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 5px;
+    z-index: 1001;
+    cursor: pointer;
+}
+
+.collapsed-menu[opened=true] .item-menu {
+    justify-content: flex-start;
+}
+
+.collapsed-menu .item-menu img {
+    width: 40px;
+}
+
+.collapsed-menu .item-menu p {
+    width: auto;
+    color: #fff;
+    font-family: 'Nunito';
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.indicator {
+    z-index: 1000;
+    height: 40px;
+    width: 40px;
+    background: #626262;
+    position: absolute;
+    margin-top: -70px;
+    border-radius: 3px;
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.collapsed-menu .bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 70px;
+    background: #7c7c7c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapsed-menu .img-account {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    position: fixed;
+    left: 10px;
+    margin-top: -70px;
+}
+
+.collapsed-menu .img-account img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.collapsed-menu .name-account{
+    font-family: 'Nunito';
+    color: #fff;
+    margin-left: 65px;
+    width: 500px;
+    font-size: 20px;
+}
+
+.collapsed-menu .img-settings-account {
+    display: none;
+    transition: 0.5s;
+}
+
+.collapsed-menu .bottom:hover .img-settings-account {
+    width: 40px;
+    height: 40px;
+    margin-top: -70px;
+    border-radius: 50px;
+    position: fixed;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255 255 255 / 50%);
+    cursor: pointer;
+}
+
+.root {
+    margin-left: 50px;
+}
+    </style>
+</head>
+<body>
+    <div class="collapsed-menu" opened="false">
+        <div class="top">
+            <a class="item-menu" onclick="progress.set('index')" title="nossos dados">
+                <img src="../assets/imgs/cubo-x-logo.png" onclick="location.reload()">
+                <p>CuboX</p>
+            </a>
+        </div>
+        <div class="body-menu">
+            <div class="indicator"></div>
+            <a class="item-menu" onclick="progress.set('feed')" title="Feed">
+                <img src="../assets/imgs/feed.svg">
+                <p>Feed</p>
+            </a>
+            <a class="item-menu" onclick="progress.set('our_data')" title="Nossos dados">
+                <img src="../assets/imgs/our_data.svg">
+                <p>Nossos Dados</p>
+            </a>
+            <a class="item-menu" onclick="progress.set('about')" title="Sobre">
+                <img src="../assets/imgs/about.svg">
+                <p>Sobre</p>
+            </a>
+            <a class="item-menu" onclick="progress.set('contact')" title="Contato">
+                <img src="../assets/imgs/contact.svg">
+                <p>Contato</p>
+            </a>
+        </div>
+        <div class="bottom">
+            <div class="img-account">
+                <img id="img-account" src="../assets/imgs/img-account.png">
+            </div>
+            <a class="img-settings-account" onclick="progress.set('accounts/dashboard')">
+                <img src="../assets/imgs/settings.svg" style="width: 70%;height: 70%;">
+            </a>
+            <div class="name-account">
+                <p>Janaina RA Almeida</p>
+            </div>
+        </div>
+    </div>
+    <div class="root"></div>
+</body>
+</html>

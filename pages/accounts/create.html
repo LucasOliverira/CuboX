@@ -5,12 +5,12 @@
 </head>
 <body>
     <div class="img-left">
-        <img src="../../assets/imgs/jupter.jpg" style="width:auto;height:100%;position:absolute;z-index:-999;left:-10%;">
+        <img src="../../assets/imgs/jupter.jpg" style="width:auto;height:100%;position:absolute;left:-10%;">
     </div>
     <div class="container">
         <div class="top">
             <p>Já tem uma conta? Entre nela!</p>
-            <a href="/?cs=accounts&cp=accounts/enter" class="btn-wire">Entar</a>
+            <a onclick="progress.set('accounts/enter')" class="btn-wire">Entar</a>
         </div>
         <div class="body">
             <div class="title">
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="down">
-            <a href="/">Voltar para Home</a>
+            <a onclick="progress.set('index')">Voltar para Home</a>
         </div>
     </div>
 </body>

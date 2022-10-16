@@ -4,36 +4,10 @@
     <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-itens">
-            <a class="navbar-brand" href="#">CuboX</a>
-            <ul class="ul-navBar">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/?cs=index&cp=feed">Feed</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/?cs=index&cp=our_data">Nossos Dados</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/?cs=index&cp=about">Sobre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/?cs=index&cp=contact">Contato</a>
-                </li>
-            </ul>
-            <form class="form-end">
-                <a class="btn-account" href="/?cs=accounts&cp=accounts/enter">Conta</a>
-            </form>
-            </div>
-        </div>
-    </nav>
     <header>
         <div class="text-header">
             <h1>
-                Um Texto Legal
+                Uma nova visão do Mundo
             </h1>
         </div>
         <div class="scroll" id="scroll">
@@ -42,15 +16,22 @@
     </header>
     <main>
         <div class="body-container">
-            <text-viewer top-content="Mudando o Mundo" content="Aqui você ira encontrar dados presisos mas ainda fáceis de ler, de uma olhada.\nAs informações que estão aqui são fáceis até para crianças e completas até para adultos"></text-viewer>
+            <text-viewer top-content="Mudando o Mundo" content="Aqui você ira encontrar dados precisos, mas ainda fáceis de ler, de uma olhada.\nAs informações que estão aqui são fáceis até para crianças e completas até para adultos"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
+            <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
             <text-viewer top-content="Um Gráfico Legal" content="Uma explicação mais legal ainda!" name="graph1"></text-viewer>
             <div class="content-text">
                 <h1 class="content-title">Quer nos ajudar?</h1>
                 <p class="content-description">
-                    Esta é uma pagina sem fins lucraivos, por conta diso não podemos atualizar constantemente os dados. Então pedimo a sua ajuda para completar este site, crie uma conta e poste seus dados!
+                    sta é uma página sem fins lucrativos, por conta disso não podemos atualizar constantemente os dados. Então pedimos a sua ajuda para completar este site, crie uma conta e poste seus dados!
                 </p>
                 <div class="content-btn">
-                    <a href="/?cs=accounts&cp=accounts/create" class="button-green">Criar</a>
+                    <a onclick="progress.set('accounts/create')" class="button-green">Criar</a>
                 </div>
             </div>
         </div>
@@ -71,16 +52,14 @@
     </footer>
     <script>
         // Graphics
-        const app = app_signature.application_manager
-
-        const texts = document.querySelectorAll("text-viewer")
+        var texts = document.querySelectorAll("text-viewer")
         texts.forEach(item=>{
             const title = item.getAttribute("top-content")
             var text = item.getAttribute("content")
             var img = ""
 
             if(item.hasAttribute("name")){
-                img = `<img class="content-image" src="${app.host}assets/imgs/graphics/${item.getAttribute("name")}.png">`
+                img = `<img class="content-image" src="../assets/imgs/graphics/${item.getAttribute("name")}.png">`
             }
 
             text = text.replace("\\n","<br>")
@@ -99,7 +78,7 @@
 
         // scroll
 
-        const scrollBtn = document.querySelector("div#scroll")
+        var scrollBtn = document.querySelector("div#scroll")
         scrollBtn.addEventListener("click",()=>{
             let destination = document.querySelector("main");
             destination.scrollIntoView({
